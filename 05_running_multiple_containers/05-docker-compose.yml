@@ -1,0 +1,16 @@
+version: '3'
+services:
+    receiver:
+        build:
+            context: .
+            dockerfile: ./src/receiver/05_Dockerfile_receiver
+        expose:
+            - 3000
+        container_name: 05_receiver
+    sender:
+        build:
+            context: .
+            dockerfile: ./src/sender/05_Dockerfile_sender
+        depends_on:
+            - receiver
+        container_name: 05_sender

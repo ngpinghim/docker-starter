@@ -1,0 +1,11 @@
+FROM debian:9.12-slim AS builder
+WORKDIR /var/04_reducing_image_size
+RUN apt update
+RUN apt -y install gcc
+COPY ./src/ ./src
+RUN gcc ./src/main.c -o ./out
+
+FROM debian:9.12-slim
+WORKDIR /var/04_reducing_image_size
+COPY --from=builder /var/04_reducing_image_size/out .
+CMD ./out
